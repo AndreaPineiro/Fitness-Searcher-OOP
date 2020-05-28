@@ -1,7 +1,12 @@
+/*
+Proyecto Buscador
+Andrea Piñeiro Cavazos
+A01705681
+28/05/2020
+*/
+
 #ifndef ENTRENAMIENTO_H_
 #define ENTRENAMIENTO_H_
-
-
 
 #include <string>
 #include <iostream>
@@ -26,7 +31,7 @@ class Entrenamiento: public Servicio{
 	//Métodos del objeto
 	public:
 		Entrenamiento():Servicio(){}; //Constructor default
-		Entrenamiento(string nom_serv,string t, float precio, int promo):Servicio(nom_serv), tipo(t), precio_clase(precio),promocion(promo){};
+		Entrenamiento(string nom_serv,string nom, string t, float precio, int promo):Servicio(nom_serv, nom), tipo(t), precio_clase(precio),promocion(promo){};
 
 		//Declaración de getters
 		string get_tipo(){return tipo;}
@@ -90,24 +95,21 @@ float Entrenamiento::precio_con_promo(){
 //Se crea la clase gimnasio que hereda de Entrenamiento
 class Gimnasio: public Entrenamiento {
 	private:
-		string nombre;
 		string ciudad;
 		float espacio;
 		long telefono;
 		int dias;
 
 	public:
-		Gimnasio():Entrenamiento("GIMNASIO","",0,0){};
-		Gimnasio(string t, float precio, int promo,string nom, string ciud, float esp, long tel, int d):
-		Entrenamiento("GIMNASIO", t, precio, promo), nombre(nom), ciudad(ciud), espacio(esp),telefono(tel), dias (d){};
+		Gimnasio():Entrenamiento("GIMNASIO","","",0,0){};
+		Gimnasio(string nom,string t, float precio, int promo, string ciud, float esp, long tel, int d):
+		Entrenamiento("GIMNASIO", nom, t, precio, promo), ciudad(ciud), espacio(esp),telefono(tel), dias (d){};
 
-		string get_nombre() {return nombre;}
 		string get_ciudad() {return ciudad;}
 		float get_espacio() {return espacio;}
 		long get_telefono() {return telefono;}
 		int get_dias() {return dias;}
 
-		void set_nombre(string nuevo_nombre) {nombre = nuevo_nombre;}
 		void set_ciudad(string nueva_ciudad) {ciudad = nueva_ciudad;}
 		void set_espacio(float nuevo_espacio) {espacio = nuevo_espacio;}
 		void set_telefono(long nuevo_telefono) {telefono = nuevo_telefono;}
@@ -122,7 +124,7 @@ class Gimnasio: public Entrenamiento {
 string Gimnasio::mostrar(){
 		stringstream aux;
     	aux << nombre_servicio << endl << "\tNombre: " << nombre << endl << "\tCiudad: " << ciudad <<  endl << "\tTipo de entrenamiento: " << tipo << endl
-    	<< "\tPromoción: "  << promocion << endl << "\tPrecio por Mes: " << precio_por_mes() << endl << "\tPrecio con Promoción: " << precio_con_promo() << endl << "\tTelefono: " << telefono << endl << "\tEntrenadores: " <<
+    	<< "\tPromoción: "  << promocion << endl << "\tPrecio por Mes: $" << precio_por_mes() << endl << "\tPrecio con Promoción: $" << precio_con_promo() << endl << "\tTelefono: " << telefono << endl << "\tEntrenadores: " <<
     	get_entrenadores() << endl << "\tHorarios: " << get_horarios() << endl << "\tDías que abre: " << dias << endl << "\tTamaño del Local: " << espacio << endl 
     	<< "\tEstrellas: " << puntaje() << endl << "\tReseñas: "  << get_resenas() << endl << "\tInscritos: " << get_inscritos()<< endl << endl;  
     return aux.str();
@@ -138,10 +140,10 @@ class Online: public Entrenamiento{
 
 	//Métodos
 	public:
-		Online():Entrenamiento("ENTRENAMIENTO ONLINE","",0,0){};
+		Online():Entrenamiento("ENTRENAMIENTO ONLINE","","",0,0){};
 
-		Online(string t, float precio, int promo,int clases, string web):
-		Entrenamiento("ENTRENAMIENTO ONLINE", t, precio, promo), clases_por_semana(clases),sitio_web(web){};
+		Online(string nom, string t, float precio, int promo,int clases, string web):
+		Entrenamiento("ENTRENAMIENTO ONLINE", nom, t, precio, promo), clases_por_semana(clases),sitio_web(web){};
 
 		int get_clases_por_sem() {return clases_por_semana;}
 		string get_sitio_web() {return sitio_web;}
@@ -158,8 +160,8 @@ class Online: public Entrenamiento{
 //Se define el método mostrar en el que se crea una string con los datos del Entrenamiento online
 string Online::mostrar(){
 		stringstream aux;
-    	aux << nombre_servicio << endl << "\tTipo de entrenamiento: " << tipo << endl << "\tClases por Semana: " << clases_por_semana << endl << "\tPromoción: "  
-    	<< promocion << endl << "\tPrecio por Mes: " << precio_por_mes() << endl << "\tPrecio con Promoción: " << precio_con_promo() << endl << "\tEntrenadores: " << get_entrenadores() << endl << "\tHorarios: " << get_horarios() 
+    	aux << nombre_servicio << endl << "\tNombre: " << nombre << endl << "\tTipo de entrenamiento: " << tipo << endl << "\tClases por Semana: " << clases_por_semana << endl << "\tPromoción: "  
+    	<< promocion << endl << "\tPrecio por Mes: $" << precio_por_mes() << endl << "\tPrecio con Promoción: $" << precio_con_promo() << endl << "\tEntrenadores: " << get_entrenadores() << endl << "\tHorarios: " << get_horarios() 
     	<< endl << "\tSitio Web: " << sitio_web << endl << "\tEstrellas: " << puntaje() << endl << "\tReseñas: "  << get_resenas() << endl << "\tInscritos: " << get_inscritos()<< endl << endl;  
     return aux.str();
 }

@@ -1,3 +1,11 @@
+/*
+Proyecto Buscador
+Andrea Piñeiro Cavazos
+A01705681
+28/05/2020
+*/
+
+
 #ifndef NUTRIOLOGO_H_
 #define NUTRIOLOGO_H_
 
@@ -14,18 +22,16 @@ using namespace std;
 class Nutriologo: public Servicio{
 	//Declaro variables de instancia
 	private:
-		string nombre;
 		float precio_consulta;
 		string ciudad;
 
 
 	//Declaro los métodos del objeto
 	public: 
-		Nutriologo():Servicio("NUTRICIÓN"){}; //Constructor default
+		Nutriologo():Servicio("NUTRICIÓN",""){}; //Constructor default
 
-		Nutriologo(string nom_nutri, float precio_c, string ciud):Servicio("NUTRICIÓN"), nombre (nom_nutri), precio_consulta(precio_c),ciudad(ciud){};
+		Nutriologo(string nom_nutri, float precio_c, string ciud):Servicio("NUTRICIÓN", nom_nutri), precio_consulta(precio_c),ciudad(ciud){};
 
-		string get_nombre() {return nombre;}
 		float get_precio_consulta() {return precio_consulta;}
 		string get_ciudad() {return ciudad;}
 

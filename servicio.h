@@ -1,3 +1,10 @@
+/*
+Proyecto Buscador
+Andrea Piñeiro Cavazos
+A01705681
+28/05/2020
+*/
+
 #ifndef SERVICIO_H_
 #define SERVICIO_H_
 
@@ -19,13 +26,15 @@ class Servicio{
 		vector <string> resenas;
 		vector <string> inscritos;
 		string nombre_servicio;
+		string nombre;
 
 	//Declaración de los métodos del objeto
 	public:
-		Servicio(): nombre_servicio(""){}; //Constructor por default
-		Servicio(string nom):nombre_servicio(nom){}; //Constructor que recibe nombre del servicio
+		Servicio(): nombre_servicio(""), nombre(""){}; //Constructor por default
+		Servicio(string nom_serv, string nom):nombre_servicio(nom_serv),nombre(nom){}; //Constructor que recibe nombre del servicio
 
 		//Getters
+		string get_nombre() {return nombre;}
 		string get_resenas();
 		string get_inscritos();
 		string get_nombre_servicio(){return nombre_servicio;}
@@ -34,6 +43,7 @@ class Servicio{
 		void set_calificacion_nueva(int nueva_calif) {calificaciones.push_back(nueva_calif);}
 		void set_nueva_resena(string nueva_resena) {resenas.push_back(nueva_resena);}
 		void set_nuevo_inscrito(string nuevo_inscrito) {inscritos.push_back(nuevo_inscrito);}
+		void set_nombre(string nuevo_nombre) {nombre = nuevo_nombre;}
 
 		double puntaje();
 		virtual string mostrar()=0;
@@ -87,4 +97,3 @@ double Servicio::puntaje(){
 }
 
 #endif
-

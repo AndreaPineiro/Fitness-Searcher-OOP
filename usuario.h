@@ -1,3 +1,11 @@
+/*
+Proyecto Buscador
+Andrea Piñeiro Cavazos
+A01705681
+28/05/2020
+*/
+
+
 #ifndef USUARIO_H_
 #define USUARIO_H_
 
