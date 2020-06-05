@@ -168,5 +168,3 @@ string Online::mostrar(){
 
 
 #endif
-
-
