@@ -37,7 +37,8 @@ class Usuario {
 		string mostrar();
 };
 
-//Se instancia la lista para hacer una cadena concatenada con cada uno de los elementos 
+//Se instancia la lista para hacer una cadena concatenada con cada uno de los elementos.
+//Devuelve como string los intereses del usuario. 
 string Usuario::get_intereses(){
   string strint=intereses[0];
   for (int i=1; i<iint;i++){
@@ -52,7 +53,8 @@ void Usuario::set_intereses(string nuevo_interes){
 	iint++;
 }
 
-//Se define el método en el que se crea una string con toda la información del usuario
+//Se define el método en el que se crea una string con toda la información del usuario.
+//Convierte los atributos a string, @return string con texto concatenado.
 string Usuario::mostrar(){
 	stringstream aux;
 	aux << "USUARIO" << endl << "\tNombre: " << nombre << endl << "\tInteréses: " << get_intereses() << endl << endl;

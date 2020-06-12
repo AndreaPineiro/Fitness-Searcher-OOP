@@ -18,7 +18,7 @@ A01705681
 
 using namespace std;
 
-//Declaración de la clase Nutrioólogo que hereda de Servicio
+//Declaración de la clase Nutriólogo que hereda de Servicio
 class Nutriologo: public Servicio{
 	//Declaro variables de instancia
 	private:
@@ -41,8 +41,10 @@ class Nutriologo: public Servicio{
 		string mostrar();
 };
 
-/*Aquí se define el método mostrar que es una sobreescritura del método Servicios; 
-Se despliegan todos los datos del nutriólogo. */
+/* Aquí se define el método mostrar que es una sobreescritura del método Servicios; 
+ * Se despliegan todos los datos del nutriólogo. Se muestran los atrubutos en una string 
+ * concatenada.
+*/
 string Nutriologo::mostrar(){
 	stringstream aux;
 	aux << nombre_servicio << endl << "\tNombre: " << nombre << endl << "\tCiudad: " <<

@@ -35,6 +35,7 @@ class Buscador {
   public:
     // Se crea un constructor vacío
     Buscador(): iserv(0), iusua(0){};
+    // Se crea un destructor que elimina los elementos 
     ~ Buscador(){
       for (int i=0; i<iserv;i++){
         delete serv[i];
@@ -44,13 +45,13 @@ class Buscador {
       }
     }
 
-    void crea_ejemplos();
+    //Funciones que la clase buscador realiza
+    void crea_ejemplos(); 
     void muestra_servicios();
     void muestra_servicios(string tipo_serv);
     void muestra_usuarios();
     void buscar_servicio(string tipo_serv, string nom);
     void buscar_serv_cerca(string ciudad);
-
     void agrega_gimnasio(string nom, string t, float precio, int promo, string ciud, float esp, long tel, int d);
     void agrega_online(string nom,string t, float precio, int promo,int clases, string web);
     void agrega_nutriologo(string nom_nutri, float precio_c, string ciud);
@@ -65,18 +66,28 @@ class Buscador {
 
 };
 
-//Crea objetos para Servicio y para Usuarios y guarda estos objetos en la posición iserv o
-//iusua del arreglo
-//new crea el objeto usando polimorfismo 
+/* Crea objetos para Servicio y para Usuarios y guarda estos objetos en la posición iserv o
+ * iusua del arreglo. Aquí creamos 2 servicios de cada uno (gimnasio, entrenamiento online,
+ * nutriólogo), para que al iniciar con el programa ya tengamos ejemplos que mostrar.
+ * new crea el objeto usando polimorfismo 
+*/
 void Buscador::crea_ejemplos(){
+  
+  //Aquí se crea el primer ejemplo de la clase Gimnasio
   serv[iserv] = new Gimnasio("Black Bull","crossfit",50, 20,"Querétaro",350,4423277564,5);
+  //Agregamos algunos datos como calificación, reseña y algún inscrito
   serv[iserv]->set_calificacion_nueva(10);
   serv[iserv]->set_nueva_resena("Muy buena opción!");
   serv[iserv]->set_nuevo_inscrito("Ximena González");
+  //Se usa el dynamic_cast para mandar llamar una función de las clase hija "entrenamiento"; 
+  //aquí se agrega entrenador y horario para completar la información del gimnasio.
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_entrenador_nuevo("Raúl Durán");
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_horario_nuevo("6:30 , 8:00 , 9:30 , 18:30 , 20:00");
+  //Incrementa el contador de servicios
   iserv++;
 
+  //Se crea el segundo ejemplo de Gimnasio, agregando los mismos datos que en la parte anterior:
+  //calificación, reseña, inscrito, entrenador y horarios.
   serv[iserv] = new Gimnasio("Logma","trx",100,0,"Pachuca",200,7721546374,5);
   serv[iserv]->set_calificacion_nueva(5);
   serv[iserv]->set_nueva_resena("Buenos entrenadores.");
@@ -85,33 +96,46 @@ void Buscador::crea_ejemplos(){
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_horario_nuevo("6:30 , 8:00 , 18:30 , 20:00");
   iserv++;
 
+  //Aquí se crea el primer ejemplo de entrenamiento online
   serv[iserv] = new Online("OnlineX","trx",30,0,3,"https://argen.com");
+  //Agregamos algunos datos como calificación, reseña e inscrito.
   serv[iserv]->set_calificacion_nueva(2);
   serv[iserv]->set_nueva_resena("La calidad de los videos es muy mala.");
   serv[iserv]->set_nuevo_inscrito("Andrea Piñeiro");
+  //Usamos dynamic_cast para llamar a las funciones de la clase hija; se agrega el nombre
+  //del entrenador, así como de los horarios.  
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_entrenador_nuevo("Norma Rodríguez");
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_horario_nuevo("6:30 , 21:00");
+  //Incrementa el contador de servicios
   iserv++;
 
+  //Se crea el segundo ejemplo de Entrenamiento Online, con los mismos datos del ejemplo anterior
   serv[iserv] = new Online("Complex", "HIIT",20,10,4,"https://entrenamiento.com");
   serv[iserv]->set_calificacion_nueva(7);
   serv[iserv]->set_nueva_resena("Entrenamientos variados");
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_entrenador_nuevo("Alicia Cavazos");
   dynamic_cast<Entrenamiento*>(serv[iserv])->set_horario_nuevo("6:30 , 9:00 , 21:00");
+  //Incrementa el contador de servicios
   iserv++;
 
+  //Aquí se crea el primer ejemplo de nutriologo
   serv[iserv] = new Nutriologo("Sofía García",350,"Querétaro");
+  //Agregamos algunos datos como calificación, reseña e inscrito.
   serv[iserv]->set_calificacion_nueva(10);
   serv[iserv]->set_nueva_resena("Excelente servicio");
   serv[iserv]->set_nuevo_inscrito("Andrea Piñeiro");
+  //Incrementa el contador de servicios
   iserv++;
 
+  //Aquí se crea el segundo ejemplo de nutriologo
   serv[iserv] = new Nutriologo("Ernesto Salgado",150,"Pachuca");
   serv[iserv]->set_calificacion_nueva(7);
   serv[iserv]->set_nueva_resena("Regular");
   serv[iserv]->set_nuevo_inscrito("Ximena González");
+  //Incrementa el contador de servicios
   iserv++;
 
+  //Se crean 2 ejemplos de usuario, que solo recibe el nombre.
   usua[iusua] = new Usuario("Ramon Martínez");
   iusua++;
   usua[iusua] = new Usuario("Andrea Piñeiro");
@@ -150,19 +174,22 @@ void Buscador::muestra_usuarios(){
     cout << usua[i]->mostrar();
 }
 
-// Esta función agrega un objeto gimnasio al arreglo de servicios
+// Esta función agrega un objeto gimnasio al arreglo de servicios, para eso toma como 
+// parámetros el nombre, tipo, precio, promoción, ciudad, espacio, teléfono y días que abre.
 void Buscador::agrega_gimnasio(string nom, string t, float precio, int promo, string ciud, float esp, long tel, int d){
   serv[iserv] = new Gimnasio (nom, t,precio,promo,ciud,esp,tel,d);
   iserv++;
 }
 
-// Esta función agrega un objeto entrenamiento online al arreglo de servicios
+// Esta función agrega un objeto entrenamiento online al arreglo de servicios. Toma como 
+// parámetros nombre, tipo, precio, promoción, clases, página web.
 void Buscador::agrega_online(string nom,string t, float precio, int promo,int clases, string web){
   serv[iserv] = new Online(nom,t, precio,promo,clases,web);
   iserv++;
 }
 
-// Esta función agrega un objeto nutriolog al arreglo de servicios
+// Esta función agrega un objeto nutriolog al arreglo de servicios. Toma como parámetros
+// el nombre del nutriólogo, precio por consulta y ciudad.
 void Buscador::agrega_nutriologo(string nom_nutri, float precio_c, string ciud){
   serv[iserv] = new Nutriologo(nom_nutri, precio_c, ciud);
   iserv++;
@@ -184,9 +211,10 @@ void Buscador::buscar_servicio(string tipo_serv, string nom){
   }
 }
 
-// Esta función busca servicios en tu ciudad (gimnasios, nutriólogos), recibe como parámetro 
-// la ciudad donde vives y usa un dinamic_cast para que el Servicio adquiera la forma "hijo" 
-// y pueda acceder al método de la clase hija.
+/* Esta función busca servicios en tu ciudad (gimnasios, nutriólogos), recibe como parámetro 
+ * la ciudad donde vives y usa un dinamic_cast para que el Servicio adquiera la forma "hijo" 
+ * y pueda acceder al método de la clase hija. 
+ */
 void Buscador::buscar_serv_cerca(string ciudad){
   for (int i=0; i<iserv;i++){
     if (serv[i]->get_nombre_servicio()=="GIMNASIO"){
@@ -234,9 +262,10 @@ void Buscador::inscribe_client(string nombre_serv, string nom_cliente){
   }
 }
 
-// Esta función modifica el precio del servicio; checa el tipo de servicio para usar un 
-// dynamic_cast de la clase respectiva y acceder al método correspondiente. 
-// Recibe el nombre del servicio y el nuevo precio. 
+/* Esta función modifica el precio del servicio; checa el tipo de servicio para usar un 
+ * dynamic_cast de la clase respectiva y acceder al método correspondiente. 
+ * Recibe el nombre del servicio y el nuevo precio. 
+*/
 void Buscador::modifica_precio(string nom, float pre){
   for (int i=0; i<iserv;i++){
     if ((serv[i]->get_nombre_servicio()=="GIMNASIO")or(serv[i]->get_nombre_servicio()=="ENTRENAMIENTO ONLINE")){
@@ -254,9 +283,10 @@ void Buscador::modifica_precio(string nom, float pre){
   }
 }
 
-// Esta función modifica la promoción del servicio; checa el tipo de servicio para usar un 
-// dynamic_cast de la clase respectiva y acceder al método correspondiente. 
-// Recibe el nombre del servicio y la nueva promoción. 
+/* Esta función modifica la promoción del servicio; checa el tipo de servicio para usar un 
+ * dynamic_cast de la clase respectiva y acceder al método correspondiente. 
+ * Recibe el nombre del servicio y la nueva promoción. 
+*/
 void Buscador::modifica_promocion(string nom, float promo){
   for (int i=0; i<iserv;i++){
     if ((serv[i]->get_nombre_servicio()=="GIMNASIO")or(serv[i]->get_nombre_servicio()=="ENTRENAMIENTO ONLINE")){
@@ -269,9 +299,10 @@ void Buscador::modifica_promocion(string nom, float promo){
   }
 }
 
-// Esta función agrega un nuevo entrenador al vector de entrenadores; checa el tipo de servicio 
-// para usar un dynamic_cast de la clase respectiva y acceder al método correspondiente. 
-// Recibe el nombre del entrenamiento y del nuevo entrenador. 
+/* Esta función agrega un nuevo entrenador al vector de entrenadores; checa el tipo de servicio 
+ * para usar un dynamic_cast de la clase respectiva y acceder al método correspondiente. 
+ * Recibe el nombre del entrenamiento y del nuevo entrenador.
+*/ 
 void Buscador::agregar_entrenador(string nom_gim, string nom_entrenador_nuevo){
   for (int i=0; i<iserv;i++){
     if ((serv[i]->get_nombre_servicio()=="GIMNASIO")or(serv[i]->get_nombre_servicio()=="ENTRENAMIENTO ONLINE")){
@@ -284,9 +315,10 @@ void Buscador::agregar_entrenador(string nom_gim, string nom_entrenador_nuevo){
   }
 }
 
-// Esta función agrega un nuevo horario al vector de horarios; checa el tipo de servicio 
-// para usar un dynamic_cast de la clase respectiva y acceder al método correspondiente. 
-// Recibe el nombre del entrenamiento y el nuevo horario. 
+/* Esta función agrega un nuevo horario al vector de horarios; checa el tipo de servicio 
+ * para usar un dynamic_cast de la clase respectiva y acceder al método correspondiente. 
+ * Recibe el nombre del entrenamiento y el nuevo horario. 
+*/
 void Buscador::agregar_horario(string nom_gim, string nuevo_horario){
   for (int i=0; i<iserv;i++){
     if ((serv[i]->get_nombre_servicio()=="GIMNASIO")or(serv[i]->get_nombre_servicio()=="ENTRENAMIENTO ONLINE")){

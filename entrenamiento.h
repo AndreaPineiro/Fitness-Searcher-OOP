@@ -48,13 +48,16 @@ class Entrenamiento: public Servicio{
 		void set_promocion(int nueva_promo){promocion=nueva_promo;}
 
 		//Se crean métodos virtuales, para usar sobreescritura en las clases de Gimnasio y Entrenamiento Online
-		virtual float precio_por_mes()=0;
+		virtual float precio_por_mes()=0; //clase abstracta
 		float precio_con_promo();
     	virtual string mostrar()=0;
     
 };
 
-//Aquí se definen los getters instanciando los vectores para crear una cadena concatenada
+/* Aquí se define el getter de los horarios; se instancia cada elemento del vector y se 
+ * añade a una cadena concatenada; para mostrar todos los horarios del gimnasio o del 
+ * entrenamiento online
+*/
 string Entrenamiento::get_horarios(){
  	string strhor;
  	int num=horarios.size();
@@ -69,6 +72,10 @@ string Entrenamiento::get_horarios(){
   	return strhor;
 }
 
+/* Aquí se define el getter de los entrenadores, se instancia cada elemento del vector y se 
+ * añade a una cadena concatenada; para mostrar el nombre de todos los entrenadores del 
+ * gimnasio o del entrenamiento online.
+*/
 string Entrenamiento::get_entrenadores(){
 	string strentre;
 	int num=entrenadores.size();
@@ -83,7 +90,8 @@ string Entrenamiento::get_entrenadores(){
   	return strentre;
 }
 
-//Esta función obtiene el precio mensual con la promoción
+//Esta función aplica la promoción al precio por mes del gimnasio o entrenamiento online,
+//muestra el precio con promoción
 float Entrenamiento::precio_con_promo(){
 	float precio_promo;
 	precio_promo = precio_por_mes()*(100-promocion)/100;
@@ -94,33 +102,38 @@ float Entrenamiento::precio_con_promo(){
 
 //Se crea la clase gimnasio que hereda de Entrenamiento
 class Gimnasio: public Entrenamiento {
+	//Variables
 	private:
 		string ciudad;
 		float espacio;
 		long telefono;
 		int dias;
 
+	//Métodos
 	public:
-		Gimnasio():Entrenamiento("GIMNASIO","","",0,0){};
+		Gimnasio():Entrenamiento("GIMNASIO","","",0,0){}; //Constructor vacío
 		Gimnasio(string nom,string t, float precio, int promo, string ciud, float esp, long tel, int d):
 		Entrenamiento("GIMNASIO", nom, t, precio, promo), ciudad(ciud), espacio(esp),telefono(tel), dias (d){};
 
+		//Se crean los getters de las variables
 		string get_ciudad() {return ciudad;}
 		float get_espacio() {return espacio;}
 		long get_telefono() {return telefono;}
 		int get_dias() {return dias;}
 
+		//Setters para cada una de las variables
 		void set_ciudad(string nueva_ciudad) {ciudad = nueva_ciudad;}
 		void set_espacio(float nuevo_espacio) {espacio = nuevo_espacio;}
 		void set_telefono(long nuevo_telefono) {telefono = nuevo_telefono;}
 		void set_dias(int nuevo_dias) {dias = nuevo_dias;}
 
 		//Aquí se encuentra la sobreescritura de los métodos virtuales 
-		float precio_por_mes() {return precio_clase * dias *4;}
+		float precio_por_mes() {return precio_clase * dias *4;} //Esta función muestra el precio por mes
 		string mostrar();
 };
 
-//Se define el métoo sobreescrito en el que se despliega la información del Gimnasio
+//Se define el métoo sobreescrito en el que se despliega la información del Gimnasio; 
+//se crea una cadena concatenada con todos los atributos.
 string Gimnasio::mostrar(){
 		stringstream aux;
     	aux << nombre_servicio << endl << "\tNombre: " << nombre << endl << "\tCiudad: " << ciudad <<  endl << "\tTipo de entrenamiento: " << tipo << endl

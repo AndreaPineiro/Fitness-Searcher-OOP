@@ -46,12 +46,12 @@ class Servicio{
 		void set_nombre(string nuevo_nombre) {nombre = nuevo_nombre;}
 
 		double puntaje();
-		virtual string mostrar()=0;
+		virtual string mostrar()=0; //método abstracto que será sobreescrito
 };
 
 
-//Aquí se iteran los vectores para mostrar sus respectivos elementos
-//Para las reseñas e inscritos se crea una sola string concatenada
+//Aquí se iteran los vectores para mostrar las reseñas 
+//get_resenas retorna una string concatenada con todas las reseñas del servicio
 string Servicio::get_resenas(){
   	string strresen="";
   	int num=resenas.size();
@@ -65,6 +65,8 @@ string Servicio::get_resenas(){
 	return strresen;
 }
 
+//Esta función muestra los inscritos del servicio; itera sobre el vector
+//para mostrar cada uno de los elementos como una string concatenada.
 string Servicio::get_inscritos(){
 	string strinscr;
 	int num=inscritos.size();
