@@ -1,6 +1,6 @@
-_**TC1030 Proyecto Buscador
-Andrea Piñeiro Cavazos
-A01705681
+_**TC1030 Proyecto Buscador**_
+_**Andrea Piñeiro Cavazos**_
+_**A01705681**_
 
 
 Este proyecto tiene la función de ser un buscador de Servicios relacionados con el Fitness y la salud; en este buscador 
